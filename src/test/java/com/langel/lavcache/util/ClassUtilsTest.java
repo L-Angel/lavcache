@@ -2,7 +2,6 @@ package com.langel.lavcache.util;
 
 import com.langel.lavcache.MyConfiguration;
 import com.langel.lavcache.annotation.Piece;
-import com.langel.lavcache.annotation.Sector;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +21,7 @@ public class ClassUtilsTest {
 
     @Test
     public void methodsWithAnnotatedTest() {
-        Set<Class<?>> classes = PackageScanner.scan(MyConfiguration.TEST_BASE_PACKAGE);
+        Set<Class<?>> classes = PackageScanUtils.scan(MyConfiguration.TEST_BASE_PACKAGE);
         Map<String, Method> methodMap = new HashMap<>();
         for (Class<?> clazz : classes) {
             methodMap.putAll(ClassUtils.methodsWithAnnotated(clazz, Piece.class));

@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
  * @author jiangcw@Ctrip.com(l-angel)
  * @date 2018/9/20
  **/
-public class PackageScanner {
+public class PackageScanUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PackageScanner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PackageScanUtils.class);
 
     public static Set<Class<?>> scan(String basePackage, Class<? extends Annotation> anno) {
         return scan(basePackage).stream()

@@ -8,7 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 public class ContainerImpl implements Container {
 
+
     private static final ConcurrentHashMap<String, Sector> SEC_CONTAINER = new ConcurrentHashMap<>();
+
+    public static Container INSTANCE = new ContainerImpl();
 
     @Override
     public Sector sector(String name) {

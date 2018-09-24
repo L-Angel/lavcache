@@ -18,10 +18,10 @@ public class PackageScannerTest {
 
     @Test
     public void scanTest() {
-        Set<Class<?>> classes = PackageScanner.scan(MyConfiguration.TEST_BASE_PACKAGE);
+        Set<Class<?>> classes = PackageScanUtils.scan(MyConfiguration.TEST_BASE_PACKAGE);
         Assert.assertEquals(1, classes.size())
         ;
-        Set<Class<?>> classes2 = PackageScanner.scan(MyConfiguration.TEST_BASE_PACKAGE, Sector.class);
+        Set<Class<?>> classes2 = PackageScanUtils.scan(MyConfiguration.TEST_BASE_PACKAGE, Sector.class);
         Assert.assertEquals(1, classes2.size());
     }
 }
