@@ -2,14 +2,17 @@ package com.langel.lavcache.scanner;
 
 
 import com.langel.lavcache.*;
+import com.langel.lavcache.cache.CachePool;
+import com.langel.lavcache.inject.SectorInjector;
+import com.langel.lavcache.piece.Piece;
+import com.langel.lavcache.piece.PieceImpl;
 import com.langel.lavcache.util.PackageScanUtils;
+import com.langel.lavcache.util.PieceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,34 +38,38 @@ public class PackageScanner implements Scanner {
             Sector sector;
             if (ContainerImpl.INSTANCE.exists(sectorName)) {
                 sector = ContainerImpl.INSTANCE.sector(sectorName);
-
+                Map<String, Piece> pieceMap = pieces(clazz);
+                pieceMap.forEach(sector::addPiece);
             } else {
-                sector = new SectorImpl(sectorName, null, pieces(clazz));
+                sector = new SectorImpl(sectorName, CachePool.defaultCache(), pieces(clazz));
                 ContainerImpl.INSTANCE.addSector(sectorName, sector);
             }
 
         }
     }
 
-    public Map<String, Piece> pieces(Class<?> clazz) {
+    /**
+     * extract piece information from class file
+     *
+     * @param clazz
+     * @return
+     */
+    private Map<String, Piece> pieces(Class<?> clazz) {
         Method[] methods = clazz.getDeclaredMethods();
         Object instance = instance(clazz);
         Map<String, Piece> pieceMap = new HashMap<>();
         for (Method m : methods) {
             com.langel.lavcache.annotation.Piece pieceAnno =
                     m.getAnnotation(com.langel.lavcache.annotation.Piece.class);
-            String name = pieceAnno.value();
-            Piece piece = new PieceImpl(name, m, instance);
+            String name = pieceAnno.value().toUpperCase();
+            Piece piece = new PieceImpl(name, m, instance, PieceUtils.option(pieceAnno));
             pieceMap.put(name, piece);
         }
         return pieceMap;
     }
 
+
     private Object instance(Class<?> clazz) {
-        try {
-            clazz.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        return SectorInjector.getInstance(clazz);
     }
 }

@@ -1,18 +1,20 @@
 package com.langel.lavcache;
 
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author jiangcw@Ctrip.com(l-angel)
  * @date 2018/9/20
+ * The function  of this class as same as sector pool, used to manage the sectors
  **/
 public class ContainerImpl implements Container {
 
+    private ConcurrentHashMap<String, Sector> SEC_CONTAINER = new ConcurrentHashMap<>();
 
-    private static final ConcurrentHashMap<String, Sector> SEC_CONTAINER = new ConcurrentHashMap<>();
+    protected ContainerImpl(){
 
-    public static Container INSTANCE = new ContainerImpl();
-
+    }
     @Override
     public Sector sector(String name) {
         return SEC_CONTAINER.get(name.toUpperCase());
@@ -26,5 +28,10 @@ public class ContainerImpl implements Container {
     @Override
     public boolean exists(String name) {
         return SEC_CONTAINER.containsKey(name.toUpperCase());
+    }
+
+    @Override
+    public Collection<String> sectorKeys() {
+        return SEC_CONTAINER.keySet();
     }
 }

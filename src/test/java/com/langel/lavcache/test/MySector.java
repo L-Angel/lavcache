@@ -1,6 +1,7 @@
 package com.langel.lavcache.test;
 
 import com.langel.lavcache.annotation.Piece;
+import com.langel.lavcache.annotation.PieceKey;
 import com.langel.lavcache.annotation.Sector;
 
 /**
@@ -10,8 +11,9 @@ import com.langel.lavcache.annotation.Sector;
 @Sector("MyTestSector")
 public class MySector {
 
-    @Piece("MyTestPiece")
-    public String piece(String key) {
+    @Piece(prefix = "testkey#userId")
+    public String piece(@PieceKey(field = "userId") String userId) {
+        System.out.println("With no hit cache");
         return "MyTestPiece";
     }
 }

@@ -36,4 +36,9 @@ public class ConcurrentCache implements Cache {
     public void put(Object key, Object val) {
         this.cache.put(key, val);
     }
+
+    @Override
+    public boolean exits(String key) {
+        return this.cache.containsKey(key.toUpperCase());
+    }
 }

@@ -1,6 +1,5 @@
-package com.langel.lavcache;
+package com.langel.lavcache.piece;
 
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
 /**
@@ -14,4 +13,6 @@ public interface Piece {
     Method method();
 
     Object instance();
+
+    PieceOption option();
 }
