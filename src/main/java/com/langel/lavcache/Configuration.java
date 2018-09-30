@@ -9,7 +9,6 @@ import com.langel.lavcache.piece.PieceLoader;
  **/
 public class Configuration {
 
-
     public static void addPreLoadSector(Class<?> clazz) {
         SectorInjector.getInstance(PieceLoader.class).loadPieces(clazz);
     }

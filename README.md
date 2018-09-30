@@ -46,4 +46,82 @@
       PieceLoader loader = SectorInjector.getInstance(PieceLoader.class);
       boolean val = loader.preload();
    ```
+五. 使用
+    
+   符合JSR107规范，Demo
+   ```java
+   
+   
+    @Test
+    public void injectTest() {
+        MySector sector = SectorInjector.getInstance(MySector.class);
+        System.out.println(sector.piece("UserId 111"));
+        System.out.println(sector.piece("UserId 111"));
+        System.out.println(sector.piece("UserId 111"));
+        System.out.println(sector.piece("UserId 111"));
+        sector.erase("UserId 111");
+        System.out.println(sector.piece("UserId 111"));
+        System.out.println(sector.piece("UserId 111"));
+        System.out.println(sector.piece("UserId 111"));
+        System.out.println(sector.pieceMultiParam("UserId 111","key2"));
+
+        System.out.println(sector.pieceMultiParam("UserId 111","key2"));
+        System.out.println(sector.eraseMultiParam("UserId 111","key2"));
+        System.out.println(sector.pieceMultiParam("UserId 111","key2"));
+        System.out.println(sector.pieceMultiParam("UserId 111","key3"));
+        System.out.println(sector.pieceMultiParam("UserId 111","key3"));
+
+        System.out.println(sector.piece("UserId 111"));
+
+        Assert.assertNotNull(sector.piece("test2"));
+
+    }
+    
+    /**
+     * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
+     * @date 2018/9/20
+     **/
+    @Sector("MyTestSector")
+    public class MySector {
+    
+        @Piece(prefix = "piece", preload = true, after = {PreloadPieceAction.class})
+        public String preloadPiece() {
+            System.out.println("With no hit cache");
+            return "PreLoadTest";
+        }
+    
+        @Piece(prefix = "testkey#userId")
+        public String piece(@PieceKey(field = "userId") String userId) {
+            System.out.println("With no hit cache");
+            return "MyTestPiece";
+        }
+    
+        @Erase(prefix = "testkey#userId")
+        public String erase(@PieceKey(field = "userId") String userId) {
+            return "";
+        }
+    
+        @Piece(prefix = "testkey2")
+        public String pieceMultiParam(@PieceKey(field = "userId") String userId,
+                                      @PieceKey(field = "key2") String keys) {
+            System.out.println("With no hit cache");
+            return "MyTestPiece";
+        }
+    
+        @Erase(prefix = "testkey2")
+        public String eraseMultiParam(@PieceKey(field = "userId") String userId,
+                                      @PieceKey(field = "key2") String keys) {
+            System.out.println("With no hit cache");
+            return "MyTestPiece";
+        }
+    }
+   ```  
+   如果要使用autoreload，过期控制，preload，自定义Cache等功能，需要
+   首先使用Luancher进行初始化
+   
+   ```java
+        LavCacheLauncher launcher=new LavCacheLauncher();
+        launcher.load();
+   ```
+
  
