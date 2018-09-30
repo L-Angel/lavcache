@@ -23,7 +23,7 @@
         expire : 100   # ms
         record : false # cache visited log
         autoreload : false # switch which used to auto reload cache
-        impl   : com.ctip.flight.mobile.fx.CredisCache.class # class name with implement Cache interface.
+        impl   : com.langel.customize.RestRedisCache.class # class name with implement Cache interface.
     
     preload :
       - com.langel.lavcache.test.MySector.class # sector class name with need preload
