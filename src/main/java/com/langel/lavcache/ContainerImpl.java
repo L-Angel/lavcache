@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  * The function  of this class as same as sector pool, used to manage the sectors
  **/

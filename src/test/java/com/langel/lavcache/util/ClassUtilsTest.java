@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 @RunWith(PowerMockRunner.class)

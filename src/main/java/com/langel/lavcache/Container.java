@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 public interface Container {

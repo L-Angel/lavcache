@@ -1,7 +1,7 @@
 package com.langel.lavcache.util;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/25
  **/
 public class StringUtils {

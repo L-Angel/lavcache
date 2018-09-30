@@ -6,7 +6,7 @@ import com.langel.lavcache.constant.Expire;
 import java.lang.annotation.*;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 @Documented

@@ -6,7 +6,7 @@ import com.langel.lavcache.cache.builder.CacheBuilder;
 import com.langel.lavcache.cache.support.RedisCache;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 public class MyConfiguration {

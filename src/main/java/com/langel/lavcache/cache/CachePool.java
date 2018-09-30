@@ -7,7 +7,7 @@ import com.langel.lavcache.cache.support.ConcurrentMapCache;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/25
  **/
 public class CachePool {

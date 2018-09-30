@@ -5,7 +5,7 @@ import com.langel.lavcache.cache.CacheWrapper;
 import com.langel.lavcache.cache.config.CacheConfig;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 public interface CacheBuilder {

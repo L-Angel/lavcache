@@ -6,7 +6,7 @@ import com.langel.lavcache.piece.MethodHolder;
 import com.langel.lavcache.piece.PieceHolder;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  * The constructor of the implement of cache interface must has one parameter and the type is String,
  * as to be the name of cache.

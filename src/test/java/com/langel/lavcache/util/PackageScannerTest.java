@@ -10,7 +10,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.Set;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 @RunWith(PowerMockRunner.class)

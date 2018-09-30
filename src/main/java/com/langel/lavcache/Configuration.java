@@ -4,7 +4,7 @@ import com.langel.lavcache.inject.SectorInjector;
 import com.langel.lavcache.piece.PieceLoader;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 public class Configuration {

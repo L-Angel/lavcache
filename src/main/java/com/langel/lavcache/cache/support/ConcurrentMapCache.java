@@ -7,7 +7,7 @@ import com.langel.lavcache.piece.PieceHolder;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author jiangcw@Ctrip.com(l-angel)
+ * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
  * @date 2018/9/20
  **/
 public class ConcurrentMapCache implements Cache {
