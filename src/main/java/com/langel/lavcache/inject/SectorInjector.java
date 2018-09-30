@@ -9,7 +9,9 @@ import com.google.inject.Module;
  * @date 2018/9/25
  **/
 public class SectorInjector {
+
     private static final Module GUICE_MODULE = new SectorModule();
+
     private static final Injector GUICE_INJECTOR = Guice.createInjector(GUICE_MODULE);
 
     public static <T> T getInstance(Class<T> clazz) {

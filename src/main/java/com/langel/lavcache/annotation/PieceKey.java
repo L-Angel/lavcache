@@ -11,7 +11,5 @@ import java.lang.annotation.*;
 @Target(ElementType.PARAMETER)
 public @interface PieceKey {
 
-    int seq() default 1;
-
     String field() default "";
 }

@@ -1,11 +1,12 @@
 package com.langel.lavcache.piece;
 
-import com.google.inject.Guice;
 import com.langel.lavcache.action.Action;
 import com.langel.lavcache.annotation.Piece;
 import com.langel.lavcache.inject.SectorInjector;
+import com.langel.lavcache.provider.Provider;
+import com.langel.lavcache.provider.SectorProvider;
+import com.langel.lavcache.sector.Sector;
 import com.langel.lavcache.util.PieceUtils;
-import jdk.internal.dynalink.linker.MethodHandleTransformer;
 
 import java.lang.reflect.Method;
 
@@ -29,6 +30,10 @@ public class PieceHolderImpl implements PieceHolder {
 
     private final Object target;
 
+    private final Provider<Sector> sectorProvider;
+
+    private Class<?> returnType;
+
     public PieceHolderImpl(Method method) {
         this.method = method;
         Piece pieceAnno = PieceUtils.pieceAnno(this.method);
@@ -38,6 +43,8 @@ public class PieceHolderImpl implements PieceHolder {
         this.targetClass = this.method.getDeclaringClass();
         this.target = SectorInjector.getInstance(this.targetClass);
         this.option = PieceUtils.option(pieceAnno);
+        this.sectorProvider = new SectorProvider();
+        this.returnType = this.method.getReturnType();
     }
 
     @Override
@@ -63,5 +70,27 @@ public class PieceHolderImpl implements PieceHolder {
     @Override
     public Class<?>[] parameterTypes() {
         return this.parameterTypes;
+    }
+
+    @Override
+    public Class<?> targetClass() {
+        return this.targetClass;
+    }
+
+    @Override
+    public Object target() {
+        return this.target;
+    }
+
+    @Override
+    public Class<?> returnType() {
+        return this.returnType;
+    }
+
+    @Override
+    public Sector sector() {
+        com.langel.lavcache.annotation.Sector sectorAnno =
+                this.targetClass.getAnnotation(com.langel.lavcache.annotation.Sector.class);
+        return this.sectorProvider.get(sectorAnno.value());
     }
 }

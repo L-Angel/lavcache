@@ -1,3 +1,4 @@
+/*
 package com.langel.lavcache.scanner;
 
 
@@ -16,10 +17,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+*/
 /**
  * @author rick(lonelyangel.jcw @ gamil.com)
  * @date 2018/9/23 下午8:26
- **/
+ **//*
+
 public class PackageScanner implements Scanner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PackageScanner.class);
@@ -48,12 +51,14 @@ public class PackageScanner implements Scanner {
         }
     }
 
-    /**
+    */
+/**
      * extract piece information from class file
      *
      * @param clazz
      * @return
-     */
+     *//*
+
     private Map<String, Piece> pieces(Class<?> clazz) {
         Method[] methods = clazz.getDeclaredMethods();
         Object instance = instance(clazz);
@@ -73,3 +78,4 @@ public class PackageScanner implements Scanner {
         return SectorInjector.getInstance(clazz);
     }
 }
+*/

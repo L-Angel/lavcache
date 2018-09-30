@@ -6,8 +6,10 @@ package com.langel.lavcache.piece;
  **/
 public interface PieceOption {
 
-    String name();
-
     boolean async();
+
+    long expire();
+
+    boolean preload();
 
 }

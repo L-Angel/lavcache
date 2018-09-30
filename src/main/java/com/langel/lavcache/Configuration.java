@@ -1,7 +1,7 @@
 package com.langel.lavcache;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.langel.lavcache.inject.SectorInjector;
+import com.langel.lavcache.piece.PieceLoader;
 
 /**
  * @author jiangcw@Ctrip.com(l-angel)
@@ -10,17 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Configuration {
 
 
-    private String[] basePackages;
-
-
-    public String[] getBasePackages() {
-        return basePackages;
+    public static void addPreLoadSector(Class<?> clazz) {
+        SectorInjector.getInstance(PieceLoader.class).loadPieces(clazz);
     }
-
-    public void setBasePackages(String[] basePackages) {
-        this.basePackages = basePackages;
-    }
-
-
-
 }

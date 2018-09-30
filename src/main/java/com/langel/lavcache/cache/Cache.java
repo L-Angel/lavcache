@@ -1,5 +1,10 @@
 package com.langel.lavcache.cache;
 
+
+import com.langel.lavcache.piece.EraseHolder;
+import com.langel.lavcache.piece.MethodHolder;
+import com.langel.lavcache.piece.PieceHolder;
+
 /**
  * @author jiangcw@Ctrip.com(l-angel)
  * @date 2018/9/20
@@ -8,11 +13,13 @@ package com.langel.lavcache.cache;
  **/
 public interface Cache {
 
-    String name();
+    Object get(String key, PieceHolder holder);
 
-    Object get(Object key);
-
-    void put(Object key, Object val);
+    void put(String key, Object val, PieceHolder holder);
 
     boolean exits(String key);
+
+    Object invalidate(String key, EraseHolder holder);
+
+    void invalidateAll();
 }

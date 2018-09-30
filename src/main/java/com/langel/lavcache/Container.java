@@ -1,7 +1,9 @@
 package com.langel.lavcache;
 
+import com.langel.lavcache.sector.Sector;
+
 import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
 
 /**
  * @author jiangcw@Ctrip.com(l-angel)
@@ -13,9 +15,13 @@ public interface Container {
 
     Sector sector(String name);
 
+    Map<String,Sector> sectorMap();
+
     void addSector(String name, Sector sector);
 
-    boolean exists(String name);
+    void addSector(Sector sector);
+
+    boolean containsSector(String name);
 
     Collection<String> sectorKeys();
 }

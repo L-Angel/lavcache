@@ -1,7 +1,7 @@
 package com.langel.lavcache.annotation;
 
 import com.langel.lavcache.action.Action;
-import com.langel.lavcache.piece.Expired;
+import com.langel.lavcache.constant.Expire;
 
 import java.lang.annotation.*;
 
@@ -31,8 +31,9 @@ public @interface Piece {
      */
     boolean async() default true;
 
-    long expired() default 1 * Expired.MONTH;
+    long expire() default 1 * Expire.MONTH;
 
+    boolean preload() default false;
     /**
      * @return
      */

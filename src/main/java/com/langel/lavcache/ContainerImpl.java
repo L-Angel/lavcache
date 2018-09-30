@@ -1,6 +1,9 @@
 package com.langel.lavcache;
 
+import com.langel.lavcache.sector.Sector;
+
 import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -12,12 +15,18 @@ public class ContainerImpl implements Container {
 
     private ConcurrentHashMap<String, Sector> SEC_CONTAINER = new ConcurrentHashMap<>();
 
-    protected ContainerImpl(){
+    protected ContainerImpl() {
 
     }
+
     @Override
     public Sector sector(String name) {
         return SEC_CONTAINER.get(name.toUpperCase());
+    }
+
+    @Override
+    public Map<String, Sector> sectorMap() {
+        return SEC_CONTAINER;
     }
 
     @Override
@@ -26,7 +35,12 @@ public class ContainerImpl implements Container {
     }
 
     @Override
-    public boolean exists(String name) {
+    public void addSector(Sector sector) {
+        SEC_CONTAINER.put(sector.name().toUpperCase(), sector);
+    }
+
+    @Override
+    public boolean containsSector(String name) {
         return SEC_CONTAINER.containsKey(name.toUpperCase());
     }
 

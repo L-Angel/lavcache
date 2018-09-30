@@ -9,20 +9,18 @@ import java.lang.reflect.Method;
 public class PieceImpl implements Piece {
 
     private final String name;
-    private final Method method;
-    private final Object instance;
-    private final PieceOption option;
 
-    public PieceImpl(String name, Method method, Object instance, PieceOption option) {
+    private final PieceHolder holder;
+
+    private boolean needReload;
+
+    public PieceImpl(String name, PieceHolder holder) {
         assert name != null;
-        assert method != null;
-        assert instance != null;
-        assert option != null;
+        assert holder != null;
 
         this.name = name;
-        this.method = method;
-        this.instance = instance;
-        this.option = option;
+        this.holder = holder;
+        this.needReload = false;
     }
 
     @Override
@@ -31,17 +29,17 @@ public class PieceImpl implements Piece {
     }
 
     @Override
-    public Method method() {
-        return this.method;
+    public PieceHolder holder() {
+        return this.holder;
     }
 
     @Override
-    public Object instance() {
-        return this.instance;
+    public boolean needReload() {
+        return this.needReload;
     }
 
     @Override
-    public PieceOption option() {
-        return null;
+    public void needReload(boolean need) {
+        this.needReload = need;
     }
 }

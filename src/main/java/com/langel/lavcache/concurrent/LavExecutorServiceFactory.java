@@ -9,11 +9,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  **/
 public class LavExecutorServiceFactory {
 
-    private static final int THREAD_POOL_CORE_SIZE = 2;
+    private static final int THREAD_POOL_CORE_SIZE = 0;
+
     private static final int THREAD_POOL_MAX_SIZE = 20;
+
     private static final int THREAD_KEEP_ALIVE = 3;
-    private static final int THREAD_POOL_QUEUE_SIZE = 100;
+
+    private static final int THREAD_POOL_QUEUE_SIZE = 1000;
+
     private static final TimeUnit THREAD_KEEP_ALIVE_TIMEUNIT = TimeUnit.MINUTES;
+
     private static final ThreadFactory THREAD_FACTORY = new DefaultThreadFactory();
 
     private static ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(THREAD_POOL_CORE_SIZE,
@@ -23,8 +28,25 @@ public class LavExecutorServiceFactory {
             new LinkedBlockingQueue<>(THREAD_POOL_QUEUE_SIZE),
             THREAD_FACTORY);
 
+    private static ExecutorService SINGLE_SERVICE = Executors.newSingleThreadExecutor(r -> {
+        return new Thread(r, "lavacache-single-thread");
+    });
+
+    private static ScheduledExecutorService SCHEDULE_SERVICE = Executors.newSingleThreadScheduledExecutor(r -> {
+        return new Thread(r, "lavacache-single-schdule-thread");
+    });
+
+
+    public static ExecutorService singleService() {
+        return SINGLE_SERVICE;
+    }
+
     public static ExecutorService executorService() {
         return EXECUTOR_SERVICE;
+    }
+
+    public static ScheduledExecutorService scheduleService() {
+        return SCHEDULE_SERVICE;
     }
 
     static class DefaultThreadFactory implements ThreadFactory {

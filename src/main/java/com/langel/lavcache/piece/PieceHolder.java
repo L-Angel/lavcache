@@ -1,7 +1,6 @@
 package com.langel.lavcache.piece;
 
 import com.langel.lavcache.action.Action;
-import org.aopalliance.intercept.MethodInterceptor;
 
 import java.lang.reflect.Method;
 
@@ -9,21 +8,14 @@ import java.lang.reflect.Method;
  * @author L-Angel,Rick(lonelyangel.jcw@gmail.com)
  * @date 2018/9/26
  **/
-public interface PieceHolder {
-
-    Method method();
-
-    String prefix();
+public interface PieceHolder extends MethodHolder {
 
     Class<? extends Action>[] after();
 
     PieceOption option();
 
-    Class<?>[] parameterTypes();
-
     class Builder {
-
-        PieceHolder build(Method method) {
+        public static PieceHolder build(Method method) {
             return new PieceHolderImpl(method);
         }
     }
