@@ -21,7 +21,7 @@ import java.util.Collection;
  *     impl   : com.ctip.flight.mobile.fx.CredisCache.class # class name with implement Cache interface.
  *
  * preload :
- *   - com.langel.lavcache.test.MySector.class # sector class name with need preload
+ *    - com.langel.lavcache.test.MySector.class # sector class name with need preload
  *
  * sectors :
  *   - com.langel.lavcache.DemoSector.class

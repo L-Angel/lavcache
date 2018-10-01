@@ -3,6 +3,7 @@ package com.langel.lavcache;
 import com.langel.lavcache.cache.CachePool;
 import com.langel.lavcache.cache.CacheWrapper;
 import com.langel.lavcache.cache.builder.CacheBuilder;
+import com.langel.lavcache.cache.builder.DefaultCacheBuilder;
 import com.langel.lavcache.cache.support.RedisCache;
 
 /**
