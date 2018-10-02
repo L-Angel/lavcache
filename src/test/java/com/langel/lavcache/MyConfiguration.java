@@ -11,7 +11,7 @@ import com.langel.lavcache.cache.support.RedisCache;
  * @date 2018/9/20
  **/
 public class MyConfiguration {
-    public static final String TEST_BASE_PACKAGE = "com.langel.lavcache.test";
+    public static final String TEST_BASE_PACKAGE = "com.langel.lavcache.mock";
 
     public static void buildRedisCache() {
         CacheBuilder builder = new DefaultCacheBuilder();

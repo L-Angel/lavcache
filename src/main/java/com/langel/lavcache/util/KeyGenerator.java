@@ -1,5 +1,6 @@
 package com.langel.lavcache.util;
 
+import com.langel.lavcache.inject.ObjectLauncher;
 import com.langel.lavcache.piece.MethodHolder;
 import com.langel.lavcache.piece.PieceKey;
 
@@ -24,7 +25,7 @@ public class KeyGenerator {
      */
     public String generate(MethodHolder holder, Object... parameters) {
         if (parameters.length == 0) {
-            return holder.prefix();
+            return holder.prefix().toUpperCase();
         }
         StringBuilder prefix = new StringBuilder(holder.prefix().toUpperCase() + "://");
         LinkedList<PieceKey> keys = parameters(holder.method().getParameterAnnotations(), parameters);
@@ -48,7 +49,8 @@ public class KeyGenerator {
                 if (aPa.annotationType().isAssignableFrom(com.langel.lavcache.annotation.PieceKey.class)) {
                     com.langel.lavcache.annotation.PieceKey pieceKeyAnno =
                             (com.langel.lavcache.annotation.PieceKey) aPa;
-                    keys.addLast(new PieceKey(pieceKeyAnno.field(), parameters[idx].toString()));
+                    Object pv = parameters[idx];
+                    keys.addLast(new PieceKey(pieceKeyAnno.field(), pv == null ? "" : pv.toString()));
                     break;
                 }
             }

@@ -13,7 +13,16 @@
      - **CachePool:** 管理Cache，内部CacheName与Sector Name一致，通过两个Name进行匹配
   2. LavCacache中缓存的管理和Sectors的管理时独立的，通过CacheName与SectorName匹配来进行组合，
     在Preload的场景下可能会出现先加载缓存然后BuildCache，然后缓存使用默认的ConcurrentCache的情况，开发需要保证调用顺序
-  
+  3. 特性
+     
+     - 缓存行为事件扩展
+     - 缓存自动过期
+     - 缓存预加载
+     - 自定义缓存媒介，支持是否设置过期时间（ms）
+     - 动态生成缓存KEY
+     - 支持yml文件配置
+     - 缓存启动Launcher扩展
+     
 二. 配置文件
     
   * resouces/lavcache.yml
@@ -26,7 +35,7 @@
         impl   : com.langel.customize.RestRedisCache.class # class name with implement Cache interface.
     
     preload :
-      - com.langel.lavcache.test.MySector.class # sector class name with need preload
+      - mock # sector class name with need preload
     
     redis   :
       ip : 127.0.0.1
@@ -46,7 +55,40 @@
       PieceLoader loader = SectorInjector.getInstance(PieceLoader.class);
       boolean val = loader.preload();
    ```
-五. 使用
+ 
+五. Action,缓存事件
+    
+   LavCache一大亮点就是在Piece初始化缓存之后，会出发一系列自定的Action事件，来进行缓存返回数据的重构，
+   ```java
+   /**
+    *PreloadAction 即为自己定义的Action行为，该Action必须实现，com.langel.lavcache.action.Action接口 
+    */
+   @Piece(prefix = "piece", preload = true, after = {PreloadPieceAction.class})
+   public String preloadPiece() {
+      System.out.println("With no hit cache");
+      return "PreLoadTest";
+   }
+   
+   /**
+    * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
+    * @date 2018/9/29 3:42 PM
+    **/
+   public class PreloadPieceAction implements Action {
+   
+       @Override
+       public void call(MethodHolder holder, String key, Object val) {
+           ActionDataCache.DATA = val;
+           System.out.println("PreloadPiece action");
+           System.out.println(key);
+           System.out.println(val);
+       }
+   }
+   ```
+六. 相关规则说明
+   1. 缓存key生成规则（大写），无参Piece=PREFIX，有参Piece=PREFIX://FIELD1=VAL1;FIELD2=VAL2;
+      其中FIELD1，FIELD2 为 com.langel.lavcache.annotation.PieceKey 中field字段
+   
+七. 使用
     
    符合JSR107规范，Demo
    ```java

@@ -1,7 +1,9 @@
 package com.langel.lavcache.util;
 
 import com.langel.lavcache.annotation.Piece;
-import com.langel.lavcache.test.MySector;
+import com.langel.lavcache.piece.MethodHolder;
+import com.langel.lavcache.piece.PieceHolder;
+import com.langel.lavcache.mock.MySector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,12 +23,14 @@ public class KeyGeneratorTest {
 
     private Piece pieceAnno;
 
+    private final KeyGenerator generator = new KeyGenerator();
+
     @Before
     public void before() {
         Class<?> clazz = MySector.class;
         for (Method m : clazz.getDeclaredMethods()) {
             Piece pieceAnno = m.getAnnotation(Piece.class);
-            if (pieceAnno != null) {
+            if (pieceAnno != null && m.getName().startsWith("piece")) {
                 this.method = m;
                 this.pieceAnno = pieceAnno;
                 break;
@@ -36,8 +40,9 @@ public class KeyGeneratorTest {
 
     @Test
     public void generatorTest() {
-        System.out.println(this.pieceAnno.prefix());
-        this.method.getTypeParameters();
-        Assert.assertTrue(true);
+        MethodHolder holder = PieceHolder.Builder.build(this.method);
+        // String expectKey = this.pieceAnno.prefix().toUpperCase();
+        String key = generator.generate(holder, new Object[holder.method().getParameterCount()]);
+        Assert.assertEquals("TESTKEY2://USERID=;KEY2=;", key);
     }
 }

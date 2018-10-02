@@ -1,12 +1,12 @@
 cache   :
-  - name   : "DefaultCache" # same as sector name
+  - name   : "DemoCustomizeCache" # same as sector name
     expire : 100   # ms
     record : false # cache visited log
     autoreload : false # switch which used to auto reload cache
-    impl   : com.ctip.flight.mobile.fx.CredisCache.class # class name with implement Cache interface.
+    impl   : com.langel.lavcache.mock.DemoCustomizeCache.class # class name with implement Cache interface.
 
 preload :
-  - com.langel.lavcache.test.MySector.class # sector class name with need preload
+  - com.langel.lavcache.mock.MySector.class # sector class name with need preload
 
 sectors :
   - com.langel.lavcache.DemoSector.class

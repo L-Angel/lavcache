@@ -1,8 +1,8 @@
 package com.langel.lavcache.inject;
 
 import com.langel.lavcache.MyConfiguration;
-import com.langel.lavcache.test.MySector;
-import com.langel.lavcache.test.RedisSector;
+import com.langel.lavcache.mock.MySector;
+import com.langel.lavcache.mock.RedisSector;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

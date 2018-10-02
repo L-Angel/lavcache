@@ -1,4 +1,4 @@
-package com.langel.lavcache.test;
+package com.langel.lavcache.mock;
 
 import com.langel.lavcache.annotation.Erase;
 import com.langel.lavcache.annotation.Piece;

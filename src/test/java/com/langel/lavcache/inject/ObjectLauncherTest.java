@@ -1,5 +1,7 @@
 package com.langel.lavcache.inject;
 
+import com.langel.lavcache.cache.Cache;
+import com.langel.lavcache.exception.LavCacheException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +18,16 @@ import java.util.Optional;
 public class ObjectLauncherTest {
 
     @Test
-    public void loadTest(){
-        Optional<Class<?>> cls=ObjectLauncher.load(null);
-        Assert.assertTrue(!cls.isPresent());
-        cls=ObjectLauncher.load("");
-        Assert.assertTrue(!cls.isPresent());
-        cls=ObjectLauncher.load("com.lavcache.Test");
-        Assert.assertTrue(!cls.isPresent());
+    public void loadTest() {
+        try {
+            Class<? extends Cache> cls = ObjectLauncher.load(null);
+            Assert.assertNotNull(cls);
+            cls = ObjectLauncher.load("");
+            Assert.assertNotNull(cls);
+            cls = ObjectLauncher.load("com.lavcache.Test");
+            Assert.assertNotNull(cls);
+        } catch (Exception ex) {
+            Assert.assertTrue(ex instanceof LavCacheException);
+        }
     }
 }

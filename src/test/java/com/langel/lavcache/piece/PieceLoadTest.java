@@ -2,7 +2,8 @@ package com.langel.lavcache.piece;
 
 import com.langel.lavcache.Configuration;
 import com.langel.lavcache.inject.SectorInjector;
-import com.langel.lavcache.test.MySector;
+import com.langel.lavcache.mock.ActionDataCache;
+import com.langel.lavcache.mock.MySector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,5 +28,6 @@ public class PieceLoadTest {
         PieceLoader loader = SectorInjector.getInstance(PieceLoader.class);
         boolean val = loader.preload();
         Assert.assertTrue(val);
+        Assert.assertNotNull(ActionDataCache.DATA);
     }
 }
