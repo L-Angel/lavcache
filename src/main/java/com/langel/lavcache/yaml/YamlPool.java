@@ -10,26 +10,28 @@ import java.util.Collection;
  * @date 2018/9/29 3:04 PM
  * <p>
  * cache config data which load from yml file(resouces/lavcache.yml)
+ * <p>
  * Demo :
  * <pre>
- * <code>
+ *     <code>
  * cache   :
- *   - name   : "DefaultCache" # same as sector name
- *     expire : 100   # ms
+ *   - name   : "DemoCustomizeCache" # same as sector name
+ *     expire : 60000   # ms
  *     record : false # cache visited log
- *     autoreload : false # switch which used to auto reload cache
- *     impl   : com.ctip.flight.mobile.fx.CredisCache.class # class name with implement Cache interface.
+ *     autoreload : true # switch which used to auto reload cache
+ *     impl   : com.langel.lavcache.mock.DemoCustomizeCache # class name with implement Cache interface.
  *
  * preload :
- *    - com.langel.lavcache.mock.MySector.class # sector class name with need preload
+ *   - com.langel.lavcache.mock.MySector # sector class name with need preload
+ *   - com.langel.lavcache.mock.DemoSector
  *
  * sectors :
- *   - com.langel.lavcache.DemoSector.class
+ *   #- com.langel.lavcache.DemoSector
  *
- * redis   :
+ * redis   : # Beta，is not a release feature
  *   ip : 127.0.0.1
  *   host : 6379
- * </code>
+ *     </code>
  * </pre>
  **/
 public class YamlPool {
