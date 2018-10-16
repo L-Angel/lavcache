@@ -1,0 +1,20 @@
+cache   :
+  - name   : "DemoCustomizeCache" # same as sector name
+    expire : 60000   # ms
+    record : false # cache visited log
+    autoreload : true # switch which used to auto reload cache
+    impl   : com.langel.lavcache.mock.DemoCustomizeCache # class name with implement Cache interface.
+
+preload :
+  - com.langel.lavcache.mock.MySector # sector class name with need preload
+  - com.langel.lavcache.mock.DemoSector
+
+sectors :
+  #- com.langel.lavcache.DemoSector
+
+redis   : # Beta，is not a release feature
+  ip : 127.0.0.1
+  host : 6379
+
+
+
