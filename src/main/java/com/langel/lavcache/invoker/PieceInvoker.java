@@ -39,7 +39,7 @@ public class PieceInvoker implements Invoker {
             sector.addPiece(name, PieceUtils.toPiece(holder));
         }
 
-        // used to reload cache witch
+        // used to reload cache
         loadAsync(sector,sector.piece(PieceUtils.name(holder)), key, invocation);
         CacheValueView valueView = sector.getRaw(key, holder);
         // get null val from native cache

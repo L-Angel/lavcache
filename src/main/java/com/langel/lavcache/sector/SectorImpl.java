@@ -12,6 +12,7 @@ import com.langel.lavcache.provider.Provider;
 import com.langel.lavcache.sector.record.Stats;
 import com.langel.lavcache.sector.record.StatsOp;
 import com.langel.lavcache.sector.record.StatsOpImpl;
+import com.langel.lavcache.util.ExpireUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,10 @@ public class SectorImpl implements Sector {
 
     private final boolean record;
 
-    private long expire;
+    /**
+     * expire at .ms
+     */
+    private long expireAt;
 
     public SectorImpl(String name, Map<String, Piece> pieceMap) {
         assert name != null;
@@ -50,8 +54,9 @@ public class SectorImpl implements Sector {
 
         this.meContainer.putAll(pieceMap);
         this.statsOp = new StatsOpImpl();
-        this.record = cache.config().record();
-        this.expire = this.cache.config().expire();
+        this.record = this.cache.config().record();
+        // config expire at time
+        this.expireAt = ExpireUtils.expireAt(this.cache.config().expire());
     }
 
     @Override
@@ -65,13 +70,16 @@ public class SectorImpl implements Sector {
     }
 
     @Override
-    public long expire() {
-        return this.expire;
+    public long expireAt() {
+        return this.expireAt;
     }
 
     @Override
-    public void expire(long expire) {
-        this.expire = expire;
+    public void resetExpireAt() {
+        this.pieceMap().values().forEach(p -> {
+            p.needReload(true);
+        });
+        this.expireAt = ExpireUtils.expireAt(this.cache.config().expire());
     }
 
     @Override
@@ -93,6 +101,10 @@ public class SectorImpl implements Sector {
     public CacheValueView getRaw(String key, PieceHolder holder) {
         if (this.record) {
             this.statsOp.increHit();
+        }
+        long current = System.currentTimeMillis();
+        if ((current - this.expireAt) <= 0){
+            this.resetExpireAt();
         }
         return toValueView(this.cache.cache().get(key, holder));
     }

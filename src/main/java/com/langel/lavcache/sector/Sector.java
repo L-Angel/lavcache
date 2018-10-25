@@ -19,10 +19,6 @@ public interface Sector {
 
     CacheWrapper cache();
 
-    long expire();
-
-    void expire(long expire);
-
     Piece piece(String name);
 
     void addPiece(String name, Piece piece);
@@ -46,4 +42,13 @@ public interface Sector {
     Map<String, Piece> pieceMap();
 
     boolean containsPiece(String name);
+
+    /**
+     * next expired time
+     *
+     * @return
+     */
+    long expireAt();
+
+    void resetExpireAt();
 }

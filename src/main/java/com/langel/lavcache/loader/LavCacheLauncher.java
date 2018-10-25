@@ -13,7 +13,6 @@ public class LavCacheLauncher {
     private void loadDdefaultLoader() {
         LOADERS.addLast(new YamlCacheLoader());
         LOADERS.addLast(new PreLoadSectorLoader());
-        LOADERS.addLast(new AutoReloadCacheLoader());
     }
 
     public LavCacheLauncher() {
