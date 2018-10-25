@@ -55,8 +55,12 @@
   
 三. 缓存过期
 
-  每1min触发一次Job进行对缓存的expire(ms)进行处理,此处的清理时类似于懒加载，当sector中expire字段的值<=0,
-  needReload将被置为true，当下次访问到这个sector中的缓存时将被重新加载  
+  ~~每1min触发一次Job进行对缓存的expire(ms)进行处理,此处的清理时类似于懒加载，当sector中expire字段的值<=0,
+  needReload将被置为true，当下次访问到这个sector中的缓存时将被重新加载~~ 
+  
+  缓存在执行getRaw方法的时候会事先进行过期时间的校验，如果当前时间大于等于expireAt时间，就会将Sector下面
+  所有的Piece中needreload字段置为True，执行懒刷新。所谓的懒刷新指的是在在获取缓存里面的数据的时候，会事先
+  对Method对应下的Piece中needReload字段进行判断，如果为True则进行异步的加载。
 
 四. 缓存预加载
 
@@ -101,10 +105,10 @@
    
    2. 线程
    
-      Cache运行过程中会启动两组线程
+      Cache运行过程中会启动两组线程(已删除该线程)
       - lavcache-single-schedule-thread （threadSize:1）
       
-         调度线程，1分钟运行1次，用于对expire的处理
+      调度线程，1分钟运行1次，用于对expire的处理
       
       - lavcache-pool-x-thread-x（coreSize:0,maxSize:30,keepAlive:33mins,queueSize:1000）
         
