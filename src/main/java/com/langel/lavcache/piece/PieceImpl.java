@@ -1,6 +1,7 @@
 package com.langel.lavcache.piece;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author L-Angel,Rick(lonelyangel.jcw@gamil.com)
@@ -12,7 +13,7 @@ public class PieceImpl implements Piece {
 
     private final PieceHolder holder;
 
-    private boolean needReload;
+    private AtomicBoolean needReload;
 
     public PieceImpl(String name, PieceHolder holder) {
         assert name != null;
@@ -20,7 +21,7 @@ public class PieceImpl implements Piece {
 
         this.name = name;
         this.holder = holder;
-        this.needReload = false;
+        this.needReload = new AtomicBoolean(false);
     }
 
     @Override
@@ -35,11 +36,11 @@ public class PieceImpl implements Piece {
 
     @Override
     public boolean needReload() {
-        return this.needReload;
+        return this.needReload.get();
     }
 
     @Override
     public void needReload(boolean need) {
-        this.needReload = need;
+        this.needReload.set(need);
     }
 }

@@ -40,7 +40,7 @@ public class PieceInvoker implements Invoker {
         }
 
         // used to reload cache
-        loadAsync(sector,sector.piece(PieceUtils.name(holder)), key, invocation);
+        loadAsync(sector, sector.piece(PieceUtils.name(holder)), key, invocation);
         CacheValueView valueView = sector.getRaw(key, holder);
         // get null val from native cache
         if (valueView instanceof NullCacheValueView) {
@@ -99,8 +99,8 @@ public class PieceInvoker implements Invoker {
         try {
             // reset reload flag
             piece.needReload(false);
-            Object r = null;
-            while ((retry -= 1) >= 0) {
+            Object r = new Object();
+            while ((retry -= 1) >= 0 && r != null) {
                 r = iv.joinpoint().proceed();
             }
             if (r != null) {
